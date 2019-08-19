@@ -19,9 +19,8 @@ Author URI: http://zutheme.com
 // Default comment form includes name, email address and website URL
 
 // Default comment form elements are hidden when user is logged in
-
+include('action.php');
 include('better-comment.php');
-
 include('comment_walker.php');
 
 add_filter('comment_form_default_fields', 'custom_fields');
@@ -346,11 +345,10 @@ function my_remove_email_field_from_comment_form($fields) {
 add_filter('comment_form_default_fields', 'my_remove_email_field_from_comment_form');
 
 function hatazu_comment_script() {
-
-    wp_enqueue_style('comment-css', plugin_dir_url(__FILE__) . 'css/comment.css',array(), '0.4.3', false);
-
-    wp_enqueue_script('comment-js', plugin_dir_url(__FILE__) .'js/comment.js', array(), '0.0.5', true ); 
-
+    wp_enqueue_style('comment-css', plugin_dir_url(__FILE__) . 'css/comment.css',array(), '0.6.2', false);
+    wp_enqueue_script('comment-js', plugin_dir_url(__FILE__) .'js/comment.js', array(), '0.5.2', true ); 
+    //wp_enqueue_script( 'comment-js', get_template_directory_uri() . '/js/my-ajax-script.js', array('jquery') );
+    wp_localize_script( 'comment-js', 'ajax_object',array( 'ajax_url' => admin_url( 'admin-ajax.php')));
 } 
 
 add_action("wp_enqueue_scripts", "hatazu_comment_script");

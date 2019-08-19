@@ -70,9 +70,8 @@ if ( post_password_required() ) {
 		endif;
 
 	endif; // Check for have_comments().
-
 	//comment_form();
-	//comment_form($comments_args);
+	form_comment();
 	?>
 
 </div><!-- #comments -->

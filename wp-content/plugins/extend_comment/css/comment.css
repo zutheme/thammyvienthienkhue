@@ -80,7 +80,25 @@
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
-
+.form-comment .comments-list:before {
+    content: '';
+    width: 0px;
+    height: 100%;
+    background: #c7cacb;
+    position: absolute;
+    left: 15px;
+    top: 0;
+}
+.form-comment .comments-list:after {
+    content: '';
+    position: absolute;
+    background: transparent;
+    bottom: 0;
+    left: 27px;
+    width: 7px;
+    height: 7px;
+    border: 0px solid #dee1e3;
+}
 .reply-list:before, .reply-list:after {display: none;}
 .reply-list li:before {
     content: '';
@@ -238,7 +256,96 @@
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
 }
+.comment-box .comment-content .form-control {
+    position: relative;
+    width: 100%;
+    background: #FFF;
+    font-size: 15px;
+    color: #595959;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+.comment-box .comment-head i {
+    float: right;
+    margin-left: 14px;
+    position: relative;
+    top: 2px;
+    color: #A6A6A6;
+    cursor: pointer;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+/*.comment-box .comment-head .rating {
+    position: relative;
+    top: 2px;
+    color: #A6A6A6;
+    cursor: pointer;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}*/
+.comment-box .comment-head .item {
+    float: left;
+    margin-right: 3px
+    margin-left: 3px;
+    position: relative;
+    top: 2px;
+    color: #A6A6A6;
+    cursor: pointer;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+.comments-list .comment-box .post-comment{
+    float: right;
+    font-weight: 400;
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 1px 15px;
+}
+.comment-box .comment-head input[type=radio] {
+    display: none;
+}
+.comment-box .comment-head label .fa{
+    display: inline-block;
+    color: #cc9900;
+    font-size: 14px;
+    border-radius: 50%;
+    /*width: 30px;
+    height: 30px;*/
+    text-align: center!important;
+    cursor: pointer;
+}
+.comment-box .comment-content textarea {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: textarea;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    flex-direction: column;
+    resize: auto;
+    cursor: text;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    margin: 0em;
 
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(169, 169, 169);
+    border-image: initial;
+    padding: 0px;
+}
 .comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #03658c;}
 /*.comment-box .comment-name.by-author:after {
     content: 'autor';

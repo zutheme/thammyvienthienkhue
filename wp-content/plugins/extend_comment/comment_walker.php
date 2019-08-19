@@ -85,35 +85,25 @@ if ( ! class_exists( 'comment_walker' ) ) {
             } 
 
             //$phone = get_comment_meta( $comment->comment_ID, 'phone', true );
-
             $avatar = get_comment_meta( $comment->comment_ID, 'avatar_comment', true );
-
-            $rating = get_comment_meta( $comment->comment_ID, 'rating', true ); ?>
-
+            $rating = get_comment_meta( $comment->comment_ID, 'rating', true ); 
+            if(isset($avatar)){
+                $rand = rand(1,3); 
+                $avatar = plugin_dir_url(__FILE__) .'image/guest-'.$rand.'.jpg';
+            }  ?>
             <li <?php comment_class(empty( $args['has_children'] ) ? '' :'parent') ?> id="comment-<?php comment_ID() ?>">
-
             <?php if($depth==1) {?>
-
                 <div class="comment-main-level">
-
             <?php } ?>
-
             <div class="comment-avatar"><img src="<?php echo $avatar; ?>" alt=""></div>
-
             <!-- Contenedor del Comentario -->
-
             <div class="comment-box">
 
                 <div class="comment-head">
-
                    <h6 class="comment-name by-author"><a href="<?php comment_author_url(); ?>"><?php comment_author(); ?></a></h6>
 
                     <span>&nbsp;<?php //comment_date('jS F Y') ?><?php if(is_admin()) { edit_comment_link('Edit','',''); } ?></span>
-
-                        
-
                     <?php 
-
                     comment_reply_link(array_merge( $args, array('depth' => $depth, 'max_depth' => $args['max_depth'], 
 
                     'before' =>'', 'after'=> '','reply_text' => __('<i class="fa fa-reply"></i>', 'textdomain'),))) ?>
@@ -157,13 +147,7 @@ if ( ! class_exists( 'comment_walker' ) ) {
         // destructor – closing wrapper for the comments list
 
         function __destruct() { ?>
-
-
-
             </ul>
-
-        
-
         <?php }
 
 
