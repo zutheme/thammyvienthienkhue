@@ -6,12 +6,16 @@ if(!function_exists('send_comment')):
 			 $comment_post_ID = htmlspecialchars(stripslashes(trim($_POST['comment_post_ID'])));
 			 $comment_parent = htmlspecialchars(stripslashes(trim($_POST['comment_parent'])));
 			 $text_comment = htmlspecialchars(stripslashes(trim($_POST['comment_body'])));
+             $phone = htmlspecialchars(stripslashes(trim($_POST['phone'])));
+             $email = htmlspecialchars(stripslashes(trim($_POST['email'])));
+             $fullname = htmlspecialchars(stripslashes(trim($_POST['fullname'])));
+             $rate = htmlspecialchars(stripslashes(trim($_POST['max'])));
 			 date_default_timezone_set('Asia/Ho_Chi_Minh');
 			 $time = current_time('mysql');
 			 $data = array(
 			    'comment_post_ID' => $comment_post_ID,
-			    'comment_author' => '',
-			    'comment_author_email' => '',
+			    'comment_author' => $fullname,
+			    'comment_author_email' => $email,
 			    'comment_author_url' => '',
 			    'comment_content' => $text_comment,
 			    'comment_type' => '',
@@ -22,15 +26,20 @@ if(!function_exists('send_comment')):
 			    'comment_date' => $time,
 			    'comment_approved' => 0,
 			);
-			wp_insert_comment($data);
-            echo json_encode(array('post_ID'=>$comment_post_ID,'parent'=>$comment_parent));
+			$comment_id = wp_insert_comment($data);
+            $phone = wp_filter_nohtml_kses($phone);
+            add_comment_meta( $comment_id, 'phone', $phone );
+            $rate = wp_filter_nohtml_kses($rate);
+            add_comment_meta( $comment_id, 'rating', $rate );
+            echo json_encode(array('comment_id'=>$comment_id));
             wp_die();
 	}
 endif;
 add_action( 'wp_ajax_send_comment', 'send_comment' );
 add_action( 'wp_ajax_nopriv_send_comment', 'send_comment' );
 if(!function_exists('form_comment')):
-	function form_comment(){ ?>
+	function form_comment(){ 
+     if(is_single() || is_page() && !is_front_page()) {   ?>
 	 <div class="comments-container form-comment">
         <ul class="comments-list">
  		<li> 
@@ -46,16 +55,16 @@ if(!function_exists('form_comment')):
                         <div class="comment-box">
                             <div class="comment-head">
                                 <h6 class="comment-name by-author"><a href="#">Bình luận</a></h6>
-                                <!-- <span>hace 20 minutos</span> -->
-                                 
-                                 <!--  <span class="rating"> -->
+                                <!-- <span>Đánh giá</span> -->
+                                 <span class="rating">
+                                <span class="chk-rate">Đánh giá</span>&nbsp; 
                                   <?php for( $i=0; $i < 5; $i++ ) { ?>
                                   	 <span class="item">
                                        <input type="radio" name="rating" class="rate" value="<?php echo $i; ?>" />
                                        <label class="lb_radio"><span class="fa fa-star-o" aria-hidden="true"></span></label><!-- fa fa-star -->
                                      </span>
                                     <?php } ?>
-                                  <!-- </span>  -->
+                                  </span> 
                             </div>
                             <div class="comment-content">
                                 <textarea name="comment" class="cmt-content form-control" rows="4" aria-required="true"></textarea>
@@ -68,6 +77,7 @@ if(!function_exists('form_comment')):
 		</ul>
 	</div>
 <?php }
+}
 endif;
 function getUserIP()
 {
@@ -79,20 +89,48 @@ function getUserIP()
     $client  = @$_SERVER['HTTP_CLIENT_IP'];
     $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
     $remote  = $_SERVER['REMOTE_ADDR'];
-
-    if(filter_var($client, FILTER_VALIDATE_IP))
-    {
+    if(filter_var($client, FILTER_VALIDATE_IP)){
         $ip = $client;
     }
-    elseif(filter_var($forward, FILTER_VALIDATE_IP))
-    {
+    elseif(filter_var($forward, FILTER_VALIDATE_IP)){
         $ip = $forward;
     }
-    else
-    {
+    else{
         $ip = $remote;
     }
 
     return $ip;
 }
-?>
+function form_user_comment(){ 
+if(is_single() || is_page() && !is_front_page()) {  ?>
+<div class="modal-comment-form">
+  <div class="modal-comment">
+    <!-- Modal content -->
+    <div class="modal-content-comment">   
+        <form class="frm-comment body">
+            <span class="close">&times;</span>
+            <div class="row">     
+                    <div class="form-reg">
+                        <p>Vòng lòng để lại thông tin để chúng tôi xác nhận</p>
+                        <div class="input-group-comment">
+                            <input type="text" class="form-control-comment fullname" name="fullname" placeholder="Họ và tên" required>
+                        </div>
+                        <div class="input-group-comment">
+                            <input type="number" class="form-control-comment phone" name="phone" placeholder="Điện thoại" required>
+                        </div>          
+                        <div class="input-group-comment">
+                            <input type="email" class="form-control-comment email" name="email" placeholder="E-mail (nếu có)">
+                        </div>      
+                      <div class="input-group-comment area-btn">
+                            <a href="javascript:void(0)" class="btn btn-default btn-submit">Xác nhận</a>
+                      </div>
+                      <p><img class="loading" style="display:none;width:30px;" src="<?php echo plugin_dir_url(__FILE__); ?>images/loader.gif"></p>
+                      <span class="result"></span>      
+                </div>
+            </div>
+        </form>     
+    </div>
+  </div>
+</div>
+<?php } 
+} ?>

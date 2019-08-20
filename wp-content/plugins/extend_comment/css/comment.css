@@ -277,28 +277,31 @@
     -o-transition: color 0.3s ease;
     transition: color 0.3s ease;
 }
-/*.comment-box .comment-head .rating {
+.comment-box .comment-head .rating {
     position: relative;
-    top: 2px;
-    color: #A6A6A6;
-    cursor: pointer;
-    -webkit-transition: color 0.3s ease;
-    -o-transition: color 0.3s ease;
-    transition: color 0.3s ease;
-}*/
+    float: right;
+    top: 0px;
+}
+.comment-box .comment-head .rating .chk-rate {
+    float: left;
+    color: #999;
+    font-size: 13px;
+    position: relative;
+    margin-right: 5px;
+}
 .comment-box .comment-head .item {
     float: left;
-    margin-right: 3px
-    margin-left: 3px;
+    margin-right: 2px;
+    margin-left: 2px;
     position: relative;
-    top: 2px;
+    top: 0px;
     color: #A6A6A6;
     cursor: pointer;
     -webkit-transition: color 0.3s ease;
     -o-transition: color 0.3s ease;
     transition: color 0.3s ease;
 }
-.comments-list .comment-box .post-comment{
+.comments-list .comment-box .post-comment {
     float: right;
     font-weight: 400;
     position: relative;
@@ -423,3 +426,175 @@
     }
     
 }
+
+/*commenttion form*/
+.modal-comment-form .modal-comment {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1010; /* Sit on top */
+    left: 0;
+    top: 0%;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content/Box */
+.modal-comment-form .modal-content-comment {
+    text-align: center;
+    background:#fff;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: 10% auto; 
+    padding: 0px 20px;
+    border: 1px solid #888;
+    max-width: 400px;
+   /*-webkit-border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   border-radius: 5px;  */
+}
+.modal-comment-form .modal-content-comment h2 {
+    font-size: 18px;
+    font-weight: 600px;
+    color: #cc9900;
+    text-transform: uppercase; 
+}
+.modal-comment-form .modal-content-comment h3 {
+    font-size: 16px;
+    font-weight: 600px;
+    color: #451511;
+}
+.modal-comment-form .modal-content-comment p {
+    font-size: 15px;
+    font-weight: 500px;
+    color: #c99000;
+}
+
+.modal-comment-form .frm-comment {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 5px 10px;
+}
+.modal-comment-form .frm-comment .column {
+    float: left;
+    width: 50%;
+}
+
+.modal-comment-form .frm-comment .column .form-reg {
+    position: relative;
+    height: 100%;
+    background: transparent;
+    padding: 25px;
+    margin-top:0px; 
+}
+/* Clear floats after the columns */
+.modal-comment-form .frm-comment .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.modal-comment-form .frm-comment .reg {
+    position: relative;
+    background: transparent;
+}
+
+
+
+.modal-comment-form .input-group-comment select.form-control-comment {
+
+}
+.modal-comment-form .frm-comment .input-group-comment {
+    width: 95%;
+    padding:7px 5px;
+    text-align: left;
+}
+.modal-comment-form .input-group-comment.capture {
+    text-align: center;
+}
+.modal-comment-form .input-group-comment.area-btn {
+    text-align: center;
+    position: relative;
+    padding-top: 15px;
+}
+.modal-comment-form .input-group-comment .btn-submit {
+    width: 100%;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    background: #9e7c13;
+    -webkit-border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   border-radius: 5px;
+   text-transform: uppercase;
+   padding: 10px 25px; 
+}
+.modal-comment-form .frm-comment .input-group-comment input.form-control-comment{
+    width: 91%;
+    padding:5px 5px;
+    -webkit-border-radius: 0px; 
+   -moz-border-radius: 0px; 
+   border-radius: 0px;
+   background: transparent;
+   border-right: 1px solid transparent;
+   border-left: 1px solid transparent;
+   border-top: 1px solid transparent;
+   border-bottom: 1px solid #EAD868;
+   font-size: 14px;
+}
+/* The Close Button */
+.modal-comment-form .modal-comment .modal-content-comment .frm-comment .close {
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 1000;
+    top: 0px;
+    right: 5px;
+    position: absolute;
+    background: transparent;
+}
+.modal-comment-form .frm-comment .close:hover,
+.modal-comment-form .frm-comment .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-comment-form .modal-content-comment .loading {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.modal-comment-form .frm-comment .row .bottom-comment {
+    text-align: center;
+    position: relative;
+    padding: 5px 10px;
+}
+.modal-comment-form .frm-comment .row .bottom-comment a {
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+@media only screen and (min-device-width: 991px) and (max-device-width:  1300px){
+/*@media (min-width: 991px) and (max-width: 1300px){*/
+    .modal-comment-form .frm-comment .close {
+        color: #000;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        z-index: 1000;
+        top: 21%;
+        right: 26%;
+        position: absolute;
+        background: transparent;
+    }
+}
+
+
+/*end promtion*/

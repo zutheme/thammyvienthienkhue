@@ -112,11 +112,8 @@ function additional_fields () {
     //Current rating scale is 1 to 5. If you want the scale to be 1 to 10, then set the value of $i to 10.
 
     for( $i=1; $i <= 5; $i++ )
-
     echo '<span class="commentrating"><input type="radio" name="rating" id="rating" value="'. $i .'"/>'. $i .'</span>';
-
-  echo'</span></p>';
-
+    echo'</span></p>';
 }
 
 
@@ -247,53 +244,25 @@ add_action( 'edit_comment', 'extend_comment_edit_metafields' );
 
 
 function extend_comment_edit_metafields( $comment_id ) {
-
-    if( ! isset( $_POST['extend_comment_update'] ) || ! wp_verify_nonce( $_POST['extend_comment_update'], 'extend_comment_update' ) ) return;
-
-
-
+  if( ! isset( $_POST['extend_comment_update'] ) || ! wp_verify_nonce( $_POST['extend_comment_update'], 'extend_comment_update' ) ) return;
   if ( ( isset( $_POST['phone'] ) ) && ( $_POST['phone'] != ’) ) :
-
   $phone = wp_filter_nohtml_kses($_POST['phone']);
-
   update_comment_meta( $comment_id, 'phone', $phone );
-
   else :
-
   delete_comment_meta( $comment_id, 'phone');
-
   endif;
-
-
-
   if ( ( isset( $_POST['avatar_comment'] ) ) && ( $_POST['avatar_comment'] != ’) ):
-
   $title = wp_filter_nohtml_kses($_POST['avatar_comment']);
-
   update_comment_meta( $comment_id, 'avatar_comment', $title );
-
   else :
-
   delete_comment_meta( $comment_id, 'avatar_comment');
-
   endif;
-
-
-
   if ( ( isset( $_POST['rating'] ) ) && ( $_POST['rating'] != ’) ):
-
   $rating = wp_filter_nohtml_kses($_POST['rating']);
-
   update_comment_meta( $comment_id, 'rating', $rating );
-
   else :
-
   delete_comment_meta( $comment_id, 'rating');
-
   endif;
-
-
-
 }
 
 add_filter('comment_form_default_fields', 'unset_url_field');
@@ -345,10 +314,11 @@ function my_remove_email_field_from_comment_form($fields) {
 add_filter('comment_form_default_fields', 'my_remove_email_field_from_comment_form');
 
 function hatazu_comment_script() {
-    wp_enqueue_style('comment-css', plugin_dir_url(__FILE__) . 'css/comment.css',array(), '0.6.2', false);
-    wp_enqueue_script('comment-js', plugin_dir_url(__FILE__) .'js/comment.js', array(), '0.5.2', true ); 
-    //wp_enqueue_script( 'comment-js', get_template_directory_uri() . '/js/my-ajax-script.js', array('jquery') );
+  if(is_single() || is_page() && !is_front_page()) {
+    wp_enqueue_style('comment-css', plugin_dir_url(__FILE__) . 'css/comment.css',array(), '0.7.8', false);
+    wp_enqueue_script('comment-js', plugin_dir_url(__FILE__) .'js/comment.js', array(), '0.9.2', true );
     wp_localize_script( 'comment-js', 'ajax_object',array( 'ajax_url' => admin_url( 'admin-ajax.php')));
+  }
 } 
-
 add_action("wp_enqueue_scripts", "hatazu_comment_script");
+add_action( 'wp_footer', 'form_user_comment');
